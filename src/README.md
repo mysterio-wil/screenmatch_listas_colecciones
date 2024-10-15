@@ -25,3 +25,11 @@ Lo que es una API y su funcionamiento básico;
 - Cómo detectar diferentes tipos de excepciones que pueden ocurrir en el código;
 - Cómo crear una clase exception personalizada;
 - A realizar una validación y lanzar una excepción en caso de error.
+
+# Aula 04
+
+## Lo que aprendimos en esta aula:
+
+- Escribir datos en un archivo utilizando clases del paquete java.io;
+- Serializar un objeto Título a formato JSON, utilizando la biblioteca Gson vista anteriormente;
+- Generar el archivo en formato JSON, con un formato más elegante, utilizando el método setPrettyPrinting.
