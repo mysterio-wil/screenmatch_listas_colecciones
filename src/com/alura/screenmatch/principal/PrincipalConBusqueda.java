@@ -31,23 +31,34 @@ public class PrincipalConBusqueda {
                     .send(request, HttpResponse.BodyHandlers.ofString());
 
             String json = response.body();
-            System.out.println(json);
+            System.out.println("Respuesta JSON: " + json);
+
+            if (json == null || json.isEmpty()) {
+                System.out.println("La respuesta JSON está vacía o es nula.");
+            }
 
             Gson gson = new GsonBuilder()
                     .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
                     .create();
             TituloOmdb miTituloOmdb = gson.fromJson(json, TituloOmdb.class);
-            System.out.println(miTituloOmdb);
+            System.out.println("Datos deserializados: " + miTituloOmdb);
 
             Titulo miTitulo = new Titulo(miTituloOmdb);
             System.out.println("Título ya convertido: " + miTitulo);
+
         } catch (NumberFormatException e) {
-            System.out.println("Ocurrió un error: ");
-            System.out.println(e.getMessage());
+            System.out.println("Ocurrió un error de formato numérico: " + e.getMessage());
         } catch (IllegalArgumentException e) {
-            System.out.println("Error en la URI, verifique la dirección.");
+            System.out.println("Error en la URI: " + direccion);
+            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            System.out.println("Error al enviar o recibir datos: " + e.getMessage());
+        } catch (InterruptedException e) {
+            System.out.println("Error: La operación fue interrumpida.");
+            Thread.currentThread().interrupt();  // Restablecer el estado de interrupción
         } catch (Exception e) {
-            System.out.println("Ocurrió un error inesperado.");
+            System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+            e.printStackTrace(); // Imprime el stack trace para ayudar a depurar
         }
         System.out.println("Finalizó la ejecución del programa!");
 
