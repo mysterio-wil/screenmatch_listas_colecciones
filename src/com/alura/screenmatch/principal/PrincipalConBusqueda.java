@@ -1,5 +1,6 @@
 package com.alura.screenmatch.principal;
 
+import com.alura.screenmatch.excepcion.ErrorDeConversionDeDuracionException;
 import com.alura.screenmatch.modelos.Titulo;
 import com.alura.screenmatch.modelos.TituloOmdb;
 import com.google.gson.FieldNamingPolicy;
@@ -19,7 +20,9 @@ public class PrincipalConBusqueda {
         System.out.println("Escriba el nombre de una película: ");
         var busqueda = lectura.nextLine();
 
-        String direccion = "https://www.omdbapi.com/?t="+busqueda+"&apikey=66d123fa";
+        String direccion = "https://www.omdbapi.com/?t="+
+                busqueda.replace(" ", "+") +
+                "&apikey=66d123fa";
 
         try {
             HttpClient client = HttpClient.newHttpClient();
@@ -56,8 +59,8 @@ public class PrincipalConBusqueda {
         } catch (InterruptedException e) {
             System.out.println("Error: La operación fue interrumpida.");
             Thread.currentThread().interrupt();  // Restablecer el estado de interrupción
-        } catch (Exception e) {
-            System.out.println("Ocurrió un error inesperado: " + e.getMessage());
+        } catch (ErrorDeConversionDeDuracionException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace(); // Imprime el stack trace para ayudar a depurar
         }
         System.out.println("Finalizó la ejecución del programa!");
